@@ -19,7 +19,9 @@ class ProfilePage extends StatefulWidget {
 class ProfileState extends State<ProfilePage> {
   ProfileState(this._owner, this._userRepository) {
     _repositories = [];
-    _userRepository.fetchUser(_owner).then(_updateUserInfo);
+    _userRepository
+        .fetchUser(_owner)
+        .then(_updateUserInfo);
   }
 
   final String _owner;
@@ -31,10 +33,9 @@ class ProfileState extends State<ProfilePage> {
     print("searching...");
   }
 
-  void _updateUserInfo(User user) {
-    print(user.repositories.length);
+  void _updateUserInfo(List<Repository> repositories) {
     setState(() {
-      _repositories = user.repositories;
+      _repositories = repositories;
     });
   }
 
