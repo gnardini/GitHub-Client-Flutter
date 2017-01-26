@@ -5,6 +5,7 @@ import 'package:github_client/model/repository.dart';
 import 'package:github_client/model/user.dart';
 import 'package:github_client/profile/repository_item.dart';
 import 'package:github_client/repository/user_repository.dart';
+import 'package:github_client/widget_utils/widget_utils.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage(this._owner, this._userRepository, {Key key}) : super(key: key);
@@ -19,9 +20,7 @@ class ProfilePage extends StatefulWidget {
 class ProfileState extends State<ProfilePage> {
   ProfileState(this._owner, this._userRepository) {
     _repositories = [];
-    _userRepository
-        .fetchUser(_owner)
-        .then(_updateUserInfo);
+    _userRepository.fetchUser(_owner).then(_updateUserInfo);
   }
 
   final String _owner;
@@ -41,12 +40,13 @@ class ProfileState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    List<RepositoryItem> repositoryItems = _repositories
+        .map((repository) => new RepositoryItem(repository))
+        .toList();
     return new Scaffold(
       appBar: new SearchBar(_owner, onPressed: _onSearchPressed),
-      body: new Column(
-        children: _repositories
-            .map((repository) => new RepositoryItem(repository))
-            .toList(),
+      body: new Block(
+        children: WidgetUtils.addDividers(repositoryItems),
       ),
     );
   }

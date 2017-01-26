@@ -1,5 +1,7 @@
 name: github_client
-description: A new flutter project.
+description: A GitHub client for mobile developed using flutter.
 dependencies:
   flutter:
     sdk: flutter
+flutter:
+  uses-material-design: true

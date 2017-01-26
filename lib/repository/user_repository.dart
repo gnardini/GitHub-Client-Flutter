@@ -16,8 +16,8 @@ class UserRepository {
         .get("$GITHUB_URL/users/$username/repos", headers: DEFAULT_HEADERS)
         .then((response) => JSON
             .decode(response.body)
-            .map((map) => new Repository(
-                map['name'], map['language'], map['stargazers_count']))
+            .map((map) => new Repository(map['name'], map['description'],
+                map['language'], map['stargazers_count']))
             .toList());
   }
 }
